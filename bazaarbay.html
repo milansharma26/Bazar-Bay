@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<link rel="stylesheet" href="Bootstrap4/conFusion/node_modules/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>		
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="css/styles.css">
+		<script src="angular.min.js"></script>
+		<script src="bazaarbay.js"></script>
+		<title>Bazaar Bay - Chalo Chale Shopping Krne!</title>
+		<script>
+			$(document).ready(function(){
+				$('[data-toggle="tooltip"]').tooltip();
+			});
+		
+			function openNav() {
+			  document.getElementById("mySidebar").style.width = "360px";
+			  document.getElementById("main").style.marginLeft = "360px";
+			}
+
+			function closeNav() {
+			  document.getElementById("mySidebar").style.width = "0";
+			  document.getElementById("main").style.marginLeft= "0";
+			}
+		</script>
+	</head>
+	<body ng-app="BazaarBayEngine" id="main" ng-controller="ItemsController as buy">
+		<section id="nav-bar">
+			<nav class="navbar navbar-expand-lg navbar-light ">
+			  <a class="navbar-brand" href="#"><img src="logo.png"></a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<img src="bar.png" width="50px" height="50px"> </button>
+			  <div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+				  <li class="nav-item ">
+					<a class="nav-link" href="bazaarbay.html">Search </a>
+				  </li>
+				  <li class="nav-item ">
+					<a class="nav-link" href="index.html">Home </a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="#services">Features</a>
+			   
+				  <li class="nav-item">
+					<a class="nav-link" href="#about">ABOUT US</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link " href="page5.html" >LOGIN</a>
+				  </li>
+			  <li class="nav-item">
+					<a class="nav-link " href="profile.html" >CONTACT</a>
+				  </li>
+			   </li>
+			<li class="nav-item">
+					<a class="nav-link" href="page6.html">OTHER SERVICES</a>
+				  </li>
+				</ul>
+			  </div>
+			</nav>
+			</section>
+
+<!-- Already Bought List -->
+		<div ng-controller="CartController as bought" id="mySidebar" class="sidebar">
+			<a href="#" class="closebtn" onclick="closeNav()">×</a>
+			<ul>
+			    <li ng-repeat="items in bought.getItems">{{items.brand}} {{items.name}}
+					<button class="btn btn-secondary" ng-click="buy.changeToRemove($index)"> REMOVE </button>
+			    </li>
+			</ul>
+			<p ng-if="bought.message()" class="emptyMessage">Nothing in your cart !!</p>
+			<button ng-if="!bought.message()" class="btn btn-success" style="padding: 10px 100px;">Proceed to Buy</button>
+		</div>
+
+<!-- Search Bar -->
+		<header class="jumbotron">
+			<div class="container">
+				<div class="row row-header">
+					<div class="col-12 col-sm-6">
+						<input type="text" style="width: 270px;" placeholder="Search" ng-model="search"> <button class="openbtn" onclick="openNav()">Open Cart</button>
+					</div>
+					<div class="col-12 col-sm"></div>
+				</div>
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row row-content align-items-center">
+<!-- To Buy List -->
+				<div class="col-12 col-sm-4 col-md-3">
+					<ul>
+						<li ng-repeat="items in buy.getItems |  filter: search">
+							<div class="card" style="width:250px">
+								<img class="card-img-top" src="{{items.image}}.jpg" alt="Card image" style="width:100%">
+								<div class="card-body">
+									<h4 class="card-title">{{items.brand}} {{items.name}}
+										<a href="#" data-toggle="tooltip" data-placement="right" title="{{items.info}}">
+											<i class="material-icons" style="color: black;">info_outline</i>
+										</a>
+									</h4>
+									<p>Quantity: <input type="number"></p>
+									<p>Size: <br>
+										<select style="width: 185px;">
+											<option></option>
+											<option>S</option>
+											<option>M</option>
+											<option>L</option>
+											<option>XL</option>
+											<option>XXL</option>
+										</select>
+									</p>
+									<h4 style="float: left;">{{items.price}}</h4>
+									<button style="float: right;" class="btn btn-success" ng-click="buy.changeToBought($index);"> ADD + </button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+<!-- To Buy List 2 -->
+				<div class="col-12 col-sm-4 col-md-3">
+					<ul>
+						<li ng-repeat="items in buy.getItems2 |  filter: search">
+							<div class="card" style="width:250px">
+								<img class="card-img-top" src="{{items.image}}.jpg" alt="Card image" style="width:100%">
+								<div class="card-body">
+									<h4 class="card-title">{{items.brand}} {{items.name}}
+										<a href="#" data-toggle="tooltip" data-placement="right" title="{{items.info}}">
+											<i class="material-icons" style="color: black;">info_outline</i>
+										</a>
+									</h4>
+									<p>Quantity: <input type="number"></p>
+									<p>Size: <br>
+										<select style="width: 185px;">
+											<option></option>
+											<option>S</option>
+											<option>M</option>
+											<option>L</option>
+											<option>XL</option>
+											<option>XXL</option>
+										</select>
+									</p>
+									<h4 style="float: left;">{{items.price}}</h4>
+									<button style="float: right;" class="btn btn-success" ng-click="buy.changeToBought2($index)"> ADD + </button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+<!-- To Buy List 3 -->
+				<div class="col-12 col-sm-4 col-md-3">
+					<ul>
+						<li ng-repeat="items in buy.getItems3 |  filter: search">
+							<div class="card" style="width:250px">
+								<img class="card-img-top" src="{{items.image}}.jpg" alt="Card image" style="width:100%">
+								<div class="card-body">
+									<h4 class="card-title">{{items.brand}} {{items.name}}
+										<a href="#" data-toggle="tooltip" data-placement="right" title="{{items.info}}">
+											<i class="material-icons" style="color: black;">info_outline</i>
+										</a>
+									</h4>
+									<p>Quantity: <input type="number"></p>
+									<p>Size: <br>
+										<select style="width: 185px;">
+											<option></option>
+											<option>S</option>
+											<option>M</option>
+											<option>L</option>
+											<option>XL</option>
+											<option>XXL</option>
+										</select>
+									</p>
+									<h4 style="float: left;">{{items.price}}</h4>
+									<button style="float: right;" class="btn btn-success" ng-click="buy.changeToBought3($index)"> ADD + </button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+<!-- To Buy List 4 -->
+				<div class="col-12 col-sm-4 col-md-3">
+					<ul>
+						<li ng-repeat="items in buy.getItems4 |  filter: search">
+							<div class="card" style="width:250px">
+								<img class="card-img-top" src="{{items.image}}.jpg" alt="Card image" style="width:100%">
+								<div class="card-body">
+									<h4 class="card-title">{{items.brand}} {{items.name}}
+										<a href="#" data-toggle="tooltip" data-placement="right" title="{{items.info}}">
+											<i class="material-icons" style="color: black;">info_outline</i>
+										</a>
+									</h4>
+									<p>Quantity: <input type="number"></p>
+									<p>Size: <br>
+										<select style="width: 185px;">
+											<option></option>
+											<option>S</option>
+											<option>M</option>
+											<option>L</option>
+											<option>XL</option>
+											<option>XXL</option>
+										</select>
+									</p>
+									<h4 style="float: left;">{{items.price}}</h4>
+									<button style="float: right;" class="btn btn-success" ng-click="buy.changeToBought4($index)"> ADD + </button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
